@@ -2,7 +2,7 @@
   <div class="login_box">
     <!-- 头像 -->
     <div class="avatar_box">
-      <img src="@/assets/logo.png" alt="">
+      <img src="@/assets/img/logo.png" alt="">
     </div>
     <!-- 登录表单 -->
     <el-form ref="loginFormRef" :model="loginForm" :rules="loginRules" label-width="0px" class="form_box">
@@ -64,7 +64,7 @@ export default {
         const username = this.loginForm.username,
               password = this.loginForm.password;
         loginReq(username, password).then(res => {
-          console.log(res);
+          // console.log(res);
           const status = res.data.meta.status;
           const token = res.data.data.token;
           if (status === 200) {
