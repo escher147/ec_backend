@@ -1,13 +1,13 @@
 <template>
   <div>
-    <bread-crumb></bread-crumb>
+    <bread-crumb :breadcrumb-item="userBreadCrum"></bread-crumb>
     <user-card></user-card>
   </div>
 </template>
 
 
 <script>
-import BreadCrumb from "@/views/user/userChildren/BreadCrumb";
+import BreadCrumb from "@/components/content/BreadCrumb";
 import UserCard from "@/views/user/userChildren/UserCard";
 
 export default {
@@ -15,7 +15,12 @@ export default {
   components: {
     BreadCrumb,
     UserCard,
-  }
+  },
+  data() {
+    return {
+      userBreadCrum: ['用户管理', '用户列表']
+    }
+  },
 };
 </script>
 

@@ -23,7 +23,7 @@
     </el-row>
     <!-- 用户列表区 -->
     <el-table :data="userList" border stripe>
-      <el-table-column type="index"></el-table-column>
+      <el-table-column type="index" label="序号" width="50"></el-table-column>
       <el-table-column prop="username" label="姓名"></el-table-column>
       <el-table-column prop="email" label="邮箱"></el-table-column>
       <el-table-column prop="mobile" label="电话"></el-table-column>
@@ -57,7 +57,7 @@
           <el-tooltip
             class="item"
             effect="dark"
-            content="分配角色"
+            content="设置角色"
             placement="top"
             :enterable="false"
           >
@@ -65,6 +65,7 @@
               type="warning"
               icon="el-icon-setting"
               size="mini"
+              @click="allotRole(scope.row)"
             ></el-button>
           </el-tooltip>
         </template>
@@ -89,15 +90,19 @@
       :editForm="editForm"
       @editSuccess="editSuccess"
     ></edit-user-info>
+    <!-- 设置用户角色对话框 -->
+    <allot-role ref="allot" :userInfo="userInfo" :roleList="roleList" @finishAllotRole="refreshUserList"></allot-role>
   </el-card>
 </template>
 
 
 <script>
 import { getUsers, putUserState, getUserById, deleteUser } from "network/users";
+import { getRoles } from 'network/roles.js'
 
 import AddUserInfo from "@/views/user/userChildren/AddUserInfo";
 import EditUserInfo from "@/views/user/userChildren/EditUserInfo";
+import AllotRole from '@/views/user/userChildren/AllotRole'
 export default {
   name: "",
   data() {
@@ -110,18 +115,21 @@ export default {
       userList: [],
       total: 0,
       editForm: {},
+      userInfo: {},
+      roleList: []
     };
   },
   components: {
     AddUserInfo,
     EditUserInfo,
+    AllotRole
   },
   created() {
     this._getUsers(this.queryInfo);
   },
   methods: {
     // 网络请求
-
+    // 获取用户列表
     _getUsers(queryInfo) {
       getUsers(queryInfo).then((res) => {
         // console.log(res);
@@ -133,6 +141,7 @@ export default {
         // console.log(this.userList, this.total);
       });
     },
+    
 
     // 事件监听
 
@@ -202,6 +211,22 @@ export default {
           });
           
         }).catch(() => {});
+    },
+    // 分配用户的角色
+    allotRole(userInfo) {
+      this.userInfo = userInfo;
+      // 获取角色列表
+      getRoles().then(res => {
+        if(res.data.meta.status !== 200) {
+          return this.$message.error('出现了一些错误，请关闭对话框后重试');
+        }
+        this.roleList = res.data.data;
+      })
+      this.$refs.allot.roleDialogVisible = true;
+    },
+    // 分配成功后重新请求数据
+    refreshUserList() {
+      this._getUsers(this.queryInfo);
     }
   },
 };
