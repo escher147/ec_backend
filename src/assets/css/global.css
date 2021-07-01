@@ -20,6 +20,17 @@ a {
     text-decoration: none;
 }
 
+.el-pagination {
+    margin-top: 15px;
+}
+
+
+/* 防止element ui级联选择器高度过高 */
+
+.el-cascader-menu {
+    height: 300px;
+}
+
 .clear-fix::after {
     clear: both;
     content: '';
