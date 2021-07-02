@@ -33,3 +33,55 @@ export function deleteCate(id) {
         method: 'DELETE'
     })
 }
+
+// 获取分类参数
+export function getCateAttributes(id, sel) {
+    return request({
+        url: `categories/${id}/attributes`,
+        method: 'GET',
+        params: {
+            sel
+        }
+    })
+}
+// 添加动态参数或者静态属性
+export function postCateAttribute(id, attr_name, attr_sel) {
+    return request({
+        url: `categories/${id}/attributes`,
+        method: 'POST',
+        data: {
+            attr_name,
+            attr_sel
+        }
+    })
+}
+// 根据 ID 查询参数
+export function getAttributeById(id, attrId, attr_sel) {
+    return request({
+        url: `categories/${id}/attributes/${attrId}`,
+        method: 'GET',
+        data: {
+            attr_sel
+        }
+    })
+}
+
+// 编辑动态参数或静态属性
+export function putCateAttribute(id, attrId, attr_name, attr_sel, attr_vals) {
+    return request({
+        url: `categories/${id}/attributes/${attrId}`,
+        method: 'PUT',
+        data: {
+            attr_name,
+            attr_sel,
+            attr_vals
+        }
+    })
+}
+// 根据删除属性或参数
+export function deleteCateAttribute(id, attrid) {
+    return request({
+        url: `categories/${id}/attributes/${attrid}`,
+        method: 'DELETE'
+    })
+}
