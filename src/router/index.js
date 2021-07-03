@@ -2,12 +2,14 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 // 路由懒加载
+// 将Login、Home、Welcome打包在同个异步块 (chunk) 中
 const Login = () =>
-    import ('views/login/Login');
+    import ( /* webpackChunkName: "login_home_welcome" */ 'views/login/Login');
 const Home = () =>
-    import ('views/home/Home')
+    import ( /* webpackChunkName: "login_home_welcome" */ 'views/home/Home')
 const Welcome = () =>
-    import ('views/welcome/Welcome')
+    import ( /* webpackChunkName: "login_home_welcome" */ 'views/welcome/Welcome')
+
 const Users = () =>
     import ('views/user/Users')
 const Rights = () =>

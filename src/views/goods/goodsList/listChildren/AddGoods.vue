@@ -218,7 +218,6 @@ export default {
             return this.$message.error('获取静态属性出错');
           }
           this.onlyData = rdata.data;
-          console.log(this.onlyData);
         })
       }
     },

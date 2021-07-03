@@ -59,15 +59,14 @@ export default {
     },
     login() {
       this.$refs.loginFormRef.validate(valid => {
-        if (!valid) return;
+        if (!valid) return this.$message.warning('请正确填写用户名和密码');
         // 登录请求
         const username = this.loginForm.username,
               password = this.loginForm.password;
         loginReq(username, password).then(res => {
-          // console.log(res);
           const status = res.data.meta.status;
-          const token = res.data.data.token;
           if (status === 200) {
+            const token = res.data.data.token;
             this.$message({
               center: true,
               message: '登录成功',
@@ -76,7 +75,7 @@ export default {
             // 将token保存在sessionStorage中，并跳转到首页
             window.sessionStorage.setItem('token', token);
             this.$router.push('/home')
-          } else if (status == 400) {
+          } else {
             this.$message({
               showClose: true,
               center: true,

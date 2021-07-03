@@ -57,7 +57,6 @@ export default {
         this.$message.error('获取数据出错');
       }
       this.reportData = rdata.data;
-      console.log(this.reportData);
       const result = _.merge(this.reportData, this.options)
       myChart.setOption(result);
 

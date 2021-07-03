@@ -275,7 +275,6 @@ export default {
           return this.$message({ type: 'error', message: '获取权限列表出错!'});
         }
         this.rightList = rdata.data;
-        console.log(this.rightList);
       })
       // 获取三级权限的id
       this.getLeafKeys(role, this.checkKeys);
