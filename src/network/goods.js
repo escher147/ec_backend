@@ -1,4 +1,8 @@
 // 商品相关网络请求
+
+/*
+ *分类相关请求
+ */
 // 获取商品分类列表
 import { request } from "./request";
 export function getGoodsCate(queryInfo) {
@@ -33,6 +37,10 @@ export function deleteCate(id) {
         method: 'DELETE'
     })
 }
+
+/* 
+ *参数属性相关请求 
+ */
 
 // 获取分类参数
 export function getCateAttributes(id, sel) {
@@ -82,6 +90,33 @@ export function putCateAttribute(id, attrId, attr_name, attr_sel, attr_vals) {
 export function deleteCateAttribute(id, attrid) {
     return request({
         url: `categories/${id}/attributes/${attrid}`,
+        method: 'DELETE'
+    })
+}
+
+/* 
+    商品相关请求
+*/
+// 获取商品列表
+export function getGoodsList(queryInfo) {
+    return request({
+        url: 'goods',
+        method: 'GET',
+        params: queryInfo
+    })
+}
+// 添加商品
+export function postGoods(goodsInfo) {
+    return request({
+        url: 'goods',
+        method: 'POST',
+        data: goodsInfo
+    })
+}
+// 删除商品
+export function deleteGoods(id) {
+    return request({
+        url: 'goods/' + id,
         method: 'DELETE'
     })
 }
